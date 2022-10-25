@@ -1,0 +1,40 @@
+{
+  "itemList": [
+    {
+      "id": "1",
+      "name": "Create new TODO list",
+      "completed": false,
+      "created": "2022-10-25T07:00:00Z"
+    },
+    {
+      "id": "2",
+      "name": "Implement all needed components",
+      "completed": false,
+      "created": "2022-10-25T07:12:00Z"
+    },
+    {
+      "id": "3",
+      "name": "Copy command results into some in-memory storage",
+      "completed": false,
+      "created": "2022-10-25T08:32:00Z"
+    },
+    {
+      "id": "4",
+      "name": "Do a nice layout of the application",
+      "completed": false,
+      "created": "2022-10-25T10:45:00Z"
+    },
+    {
+      "id": "5",
+      "name": "Use uu5 components that will do the job",
+      "completed": true,
+      "created": "2022-10-25T12:58:00Z"
+    }
+  ],
+  "pageInfo": {
+    "total": 5,
+    "pageSize": 5,
+    "pageIndex": 0
+  },
+  "uuAppErrorMap": {}
+}
