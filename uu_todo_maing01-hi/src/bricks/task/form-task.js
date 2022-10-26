@@ -1,10 +1,7 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils } from "uu5g05";
+import { Form, FormText, SubmitButton, CancelButton } from "uu5g05-forms";
 import Config from "./config/config.js";
-import RouteBar from "../core/route-bar";
-import ListProvider from "../bricks/task/list-provider";
-import { RouteController } from "uu_plus4u5g02-app";
-import ListView from "../bricks/task/list-view";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -12,16 +9,17 @@ import ListView from "../bricks/task/list-view";
 
 //@@viewOn:css
 const Css = {
-  main: () => Config.Css.css({}),
+  main: () => Config.Css.css({width: "90%", margin: "24px auto"}),
 };
 //@@viewOff:css
 
 //@@viewOn:helpers
 //@@viewOff:helpers
 
-let Tasks = createVisualComponent({
+const FormTask = createVisualComponent({
   //@@viewOn:statics
-  uu5Tag: Config.TAG + "Tasks",
+  uu5Tag: Config.TAG + "FormTask",
+  nestingLevel: ["areaCollection", "area"],
   //@@viewOff:statics
 
   //@@viewOn:propTypes
@@ -34,7 +32,6 @@ let Tasks = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const { children } = props;
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -45,14 +42,12 @@ let Tasks = createVisualComponent({
 
     return (
       <div {...attrs}>
-        <RouteBar/>
-        <ListProvider>
-          {(taskDataList) => (
-            <RouteController routeDataObject={taskDataList}>
-              <ListView taskDataList={taskDataList}/>
-            </RouteController>
-          )}
-        </ListProvider>
+        <Form onSubmit={props.onSubmit}>
+          <FormText name="name" label="New task" required />
+          <div style={{ display: "flex", gap: 8, justifyContent: "center", paddingTop: 8 }}>
+            <SubmitButton>Add task</SubmitButton>
+          </div>
+        </Form>
       </div>
     );
     //@@viewOff:render
@@ -60,6 +55,6 @@ let Tasks = createVisualComponent({
 });
 
 //@@viewOn:exports
-export { Tasks };
-export default Tasks;
+export { FormTask };
+export default FormTask;
 //@@viewOff:exports

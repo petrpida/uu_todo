@@ -35,6 +35,17 @@
     "todo": "Tasks"
   },
   "UuTodo.Bricks.Task.Tile": {
-    "deleteTip": "delete"
+    "deleteTip": "delete task",
+    "completedTask": "move to uncompleted task list",
+    "taskToComplete": "move to completed task list"
+  },
+  "UuTodo.Bricks.Task.ListView": {
+    "deleteAlertHeader": "The task has been deleted",
+    "errorAlertHeader": "Error!!!",
+    "showList": "Show completed task list",
+    "hideList": "Hide completed task list",
+    "taskList": "Task list - TODO",
+    "completedTasks": "Completed task list",
+    "addTaskAlert": "You have just added new task!"
   }
 }

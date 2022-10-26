@@ -1,42 +1,10 @@
 //@@viewOn:imports
-import { createComponent, useDataList, useEffect, useState } from "uu5g05";
+import { createComponent, useDataList } from "uu5g05";
 import Config from "./config/config.js";
 import Calls from "calls";
 //@@viewOff:imports
 
 //@@viewOn:constants
-let initialTaskList = [
-  {
-    "id": "1",
-    "name": "Create new TODO list",
-    "completed": false,
-    "created": "2022-10-25T07:00:00Z"
-  },
-  {
-    "id": "2",
-    "name": "Implement all needed components",
-    "completed": false,
-    "created": "2022-10-25T07:12:00Z"
-  },
-  {
-    "id": "3",
-    "name": "Copy command results into some in-memory storage",
-    "completed": false,
-    "created": "2022-10-25T08:32:00Z"
-  },
-  {
-    "id": "4",
-    "name": "Do a nice layout of the application",
-    "completed": false,
-    "created": "2022-10-25T10:45:00Z"
-  },
-  {
-    "id": "5",
-    "name": "Use uu5 components that will do the job",
-    "completed": true,
-    "created": "2022-10-25T12:58:00Z"
-  }
-]
 //@@viewOff:constants
 
 //@@viewOn:helpers

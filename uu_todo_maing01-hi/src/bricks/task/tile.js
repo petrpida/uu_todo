@@ -10,8 +10,13 @@ import importLsi from "../../lsi/import-lsi";
 
 //@@viewOn:css
 const Css = {
-  main: () => Config.Css.css({ width: "60vw", margin: "48px auto"}),
-  box: () => Config.Css.css({ padding: "24px" }),
+  main: () => Config.Css.css({ width: "90%", margin: "24px auto"}),
+  box: () => Config.Css.css({
+    padding: "24px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between"
+  }),
 };
 //@@viewOff:css
 
@@ -46,6 +51,11 @@ const Tile = createVisualComponent({
       props.onDelete(new Utils.Event(task.data, event));
     }
 
+    function handleUpdate (event) {
+      const task = props.taskDataObject;
+      props.onUpdate(new Utils.Event(task.data, event));
+    }
+
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -59,12 +69,22 @@ const Tile = createVisualComponent({
       <div {...attrs}>
         <Box className={Css.box()}>
           {task.data.name}
+          <div>
+          <Button
+            icon={task.data.completed ? "mdi-undo" : "mdi-check"}
+            size="xl"
+            onClick={handleUpdate}
+            significance="subdued"
+            tooltip={task.data.completed ? lsi.completedTask : lsi.taskToComplete}
+          />
           <Button
             icon="mdi-delete"
+            size="xl"
             onClick={handleDelete}
             significance="subdued"
             tooltip={lsi.deleteTip}
           />
+          </div>
         </Box>
       </div>
     );

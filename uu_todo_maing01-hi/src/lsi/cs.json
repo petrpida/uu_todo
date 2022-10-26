@@ -35,6 +35,17 @@
     "todo": "Úkoly"
   },
   "UuTodo.Bricks.Task.Tile": {
-    "deleteTip": "smazat"
+    "deleteTip": "smazat úkol",
+    "completedTask": "přesunout do úkolů k vyřízení",
+    "taskToComplete": "přesunout do vyřízených úkolů"
+  },
+  "UuTodo.Bricks.Task.ListView": {
+    "deleteAlertHeader": "Byl smazán úkol",
+    "errorAlertHeader": "Chyba!!!",
+    "showList": "Zobrazit vyřízené úkoly",
+    "hideList": "Skrýt vyřízené úkoly",
+    "taskList": "Úkoly k vyřízení",
+    "completedTasks": "Vyřízené úkoly",
+    "addTaskAlert": "Přidali jste nový úkol!"
   }
 }
