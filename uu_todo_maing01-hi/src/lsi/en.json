@@ -29,7 +29,7 @@
     "nameLabel": "Name",
     "initialize": "Initialize"
   },
-  "Menu": {
+  "UuTodo.Core.RouteBar": {
     "home": "Welcome",
     "about": "About Application",
     "todo": "Tasks"

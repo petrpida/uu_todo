@@ -29,7 +29,7 @@
     "nameLabel": "Název",
     "initialize": "Inicializovat"
   },
-  "Menu": {
+  "UuTodo.Core.RouteBar": {
     "home": "Vítejte",
     "about": "O aplikaci",
     "todo": "Úkoly"

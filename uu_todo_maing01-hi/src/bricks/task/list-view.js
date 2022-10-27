@@ -1,10 +1,11 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, PropTypes, useState, useLsi } from "uu5g05";
-import Config from "./config/config.js";
-import Tile from "./tile";
 import { useAlertBus, Button, Box } from "uu5g05-elements";
-import importLsi from "../../lsi/import-lsi";
+import { Grid } from "uu5tilesg02-elements"
+import Tile from "./tile";
 import FormTask from "./form-task";
+import Config from "./config/config.js";
+import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -12,7 +13,6 @@ import FormTask from "./form-task";
 
 //@@viewOn:css
 const Css = {
-  main: () => Config.Css.css({}),
   button: () => Config.Css.css({ display: "block", margin: "32px auto" }),
   title: () => Config.Css.css({ margin: "16px auto", textDecoration: "underline" }),
   box: () => Config.Css.css({
@@ -48,16 +48,17 @@ const ListView = createVisualComponent({
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: {},
+  defaultProps: {
+    taskDataList: {},
+  },
   //@@viewOff:defaultProps
 
   render(props) {
     //@@viewOn:private
-    const lsi = useLsi(importLsi, [ListView.uu5Tag])
+    const lsi = useLsi(importLsi, [ListView.uu5Tag]);
 
-    const initialTaskList = props.taskDataList.data
-    const [taskList, setTaskList] = useState(initialTaskList)
-    const [hidden, setHidden] = useState(false)
+    const [taskList, setTaskList] = useState(props.taskDataList.data);
+    const [hidden, setHidden] = useState(false);
 
     const { addAlert } = useAlertBus();
 
@@ -66,11 +67,11 @@ const ListView = createVisualComponent({
         header,
         message: error.message,
         priority: error,
-      })
-    }
+      });
+    };
 
     function handleDelete(event) {
-      const task = event.data;
+      const task = event.data.data;
 
       try {
         setTaskList((prevTaskList) => prevTaskList.filter((item) => item.data.id !== task.id))
@@ -87,29 +88,35 @@ const ListView = createVisualComponent({
     }
 
     function handleUpdate(event) {
-      const task = event.data;
+      const task = event.data.data;
 
       try {
         setTaskList((prevTaskList) => {
           return prevTaskList.map((item) => {
             if (item.data.id === task.id) {
               item.data.completed = !item.data.completed;
-            }
+            };
             return item;
           });
-        })
+        });
       } catch (error) {
         ListView.logger.error("Error updating task", error);
         showError(error, lsi.errorAlertHeader);
-      }
-    }
+      };
+    };
 
     function handleAddTask(event) {
       let task = event.data.value;
 
       try {
         setTaskList((prevTaskList) => {
-          return [...prevTaskList, { data: { id: Utils.String.generateId(), name: task.name, completed: false, created: new Date().toISOString() } }];
+          return [...prevTaskList,
+            { data:
+                { id: Utils.String.generateId(),
+                  name: task.name,
+                  completed: false,
+                  created: new Date().toISOString()
+                }}];
         });
         addAlert({
           header: lsi.addTaskAlert,
@@ -117,15 +124,12 @@ const ListView = createVisualComponent({
           priority: "success",
           durationMs: 2000,
         });
-        console.log(task.name)
-        event.data.value.name = "nic";
-        console.log(task.name)
 
       } catch (error) {
         ListView.logger.error("Error adding task", error);
         showError(error, lsi.errorAlertHeader);
-      }
-    }
+      };
+    };
 
     //@@viewOff:private
 
@@ -133,7 +137,12 @@ const ListView = createVisualComponent({
     //@@viewOff:interface
 
     //@@viewOn:render
-    const attrs = Utils.VisualComponent.getAttrs(props, Css.main());
+    const attrs = Utils.VisualComponent.getAttrs(props);
+
+    const tileProps = {
+      onDelete: handleDelete,
+      onUpdate: handleUpdate,
+    };
 
     return (
       <div {...attrs}>
@@ -141,17 +150,16 @@ const ListView = createVisualComponent({
         {taskList.filter((task) => (!task.data.completed)).length > 0 &&
           <Box className={Css.box()}>
             <h2 className={Css.title()}>{lsi.taskList}</h2>
-            {taskList
-              .filter((task) => (!task.data.completed))
-              .map((task) => (
-                <Tile
-                  key={task.data.id}
-                  taskDataObject={task}
-                  onDelete={handleDelete}
-                  onUpdate={handleUpdate}
-                />
-              ))
-            }
+            <Grid
+              data={taskList.filter((task) => !task.data.completed)}
+              verticalGap={8}
+              tileHeight={300}
+              tileMinWidth={400}
+              tileMaxWidth={800}
+              tileSpacing={8}
+            >
+              <Tile {...tileProps}/>
+            </Grid>
           </Box>}
         {taskList.filter((task) => (task.data.completed)).length > 0 &&
           <>
@@ -163,17 +171,16 @@ const ListView = createVisualComponent({
             </Button>
             <Box className={Css.boxHidden(hidden)}>
               <h2 className={Css.title()}>{lsi.completedTasks}</h2>
-              {taskList
-                .filter((task) => (task.data.completed))
-                .map((task) => (
-                  <Tile
-                    key={task.data.id}
-                    taskDataObject={task}
-                    onDelete={handleDelete}
-                    onUpdate={handleUpdate}
-                  />
-                ))
-              }
+              <Grid
+                data={taskList.filter((task) => task.data.completed)}
+                verticalGap={8}
+                tileHeight={300}
+                tileMinWidth={400}
+                tileMaxWidth={800}
+                tileSpacing={8}
+              >
+                <Tile {...tileProps}/>
+              </Grid>
             </Box>
           </>}
       </div>

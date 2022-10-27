@@ -1,7 +1,6 @@
 //@@viewOn:imports
-import { createVisualComponent, Lsi, useRoute } from "uu5g05";
+import { createVisualComponent, useRoute, useLsi } from "uu5g05";
 import Plus4U5App from "uu_plus4u5g02-app";
-
 import Config from "./config/config.js";
 import importLsi from "../lsi/import-lsi.js";
 //@@viewOff:imports
@@ -31,16 +30,12 @@ const RouteBar = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const [, setRoute] = useRoute();
+    const lsi = useLsi(importLsi, [RouteBar.uu5Tag])
 
     const appActionList = [
-      { children: <Lsi import={importLsi} path={["Menu", "home"]} />, onClick: () => setRoute("home") },
-      { children: <Lsi import={importLsi} path={["Menu", "todo"]} />, onClick: () => setRoute("tasks") },
-
-      {
-        children: <Lsi import={importLsi} path={["Menu", "about"]} />,
-        onClick: () => setRoute("about"),
-        collapsed: true,
-      },
+      { children: lsi.home, onClick: () => setRoute("home") },
+      { children: lsi.todo, onClick: () => setRoute("tasks") },
+      { children: lsi.about, onClick: () => setRoute("about"), collapsed: true },
     ];
     //@@viewOff:private
 

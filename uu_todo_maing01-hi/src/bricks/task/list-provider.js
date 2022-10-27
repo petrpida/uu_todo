@@ -40,17 +40,12 @@ const ListProvider = createComponent({
     function handleLoadNext(dtoIn) {
       return Calls.Task.list(dtoIn);
     }
-    // function remove(task) {
-    //   setTaskList((prevTaskList) => prevTaskList.filter((item) => item.id !== task.id));
-    // }
-
     //@@viewOff:private
 
     //@@viewOn:interface
     //@@viewOff:interface
 
     //@@viewOn:render
-    //const value = { taskList, remove }
       return typeof props.children === "function" ? props.children(taskDataList) : props.children;
     //@@viewOff:render
   },

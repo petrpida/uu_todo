@@ -1,10 +1,10 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, useScreenSize } from "uu5g05";
-import Config from "./config/config.js";
+import { RouteController } from "uu_plus4u5g02-app";
 import RouteBar from "../core/route-bar";
 import ListProvider from "../bricks/task/list-provider";
-import { RouteController } from "uu_plus4u5g02-app";
 import ListView from "../bricks/task/list-view";
+import Config from "./config/config.js";
 //@@viewOff:imports
 
 //@@viewOn:constants

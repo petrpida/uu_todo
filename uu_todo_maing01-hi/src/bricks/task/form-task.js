@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, useLsi, ContentSizeProvider } from "uu5g05";
+import { createVisualComponent, Utils, useLsi, ContentSizeProvider, PropTypes } from "uu5g05";
 import { Form, FormText, SubmitButton } from "uu5g05-forms";
 import Config from "./config/config.js";
 import importLsi from "../../lsi/import-lsi";
@@ -25,11 +25,15 @@ const FormTask = createVisualComponent({
   //@@viewOff:statics
 
   //@@viewOn:propTypes
-  propTypes: {},
+  propTypes: {
+    onSubmit: PropTypes.func,
+  },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: {},
+  defaultProps: {
+    onSubmit: () => {},
+  },
   //@@viewOff:defaultProps
 
   render(props) {

@@ -32,15 +32,15 @@ const Tile = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    taskDataObject: PropTypes.object.isRequired,
     onDelete: PropTypes.func,
+    onUpdate: PropTypes.func,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
-    taskDataObject: {},
     onDelete: () => {},
+    onUpdate: () => {},
   },
   //@@viewOff:defaultProps
 
@@ -50,13 +50,13 @@ const Tile = createVisualComponent({
     const contentSize = useContentSize()
 
     function handleDelete(event) {
-      const task = props.taskDataObject;
-      props.onDelete(new Utils.Event(task.data, event));
+      const task = props.data;
+      props.onDelete(new Utils.Event(task, event));
     }
 
     function handleUpdate (event) {
-      const task = props.taskDataObject;
-      props.onUpdate(new Utils.Event(task.data, event));
+      const task = props.data;
+      props.onUpdate(new Utils.Event(task, event));
     }
 
     //@@viewOff:private
@@ -66,20 +66,20 @@ const Tile = createVisualComponent({
 
     //@@viewOn:render
     const [elementProps] = Utils.VisualComponent.splitProps(props);
-    const task = props.taskDataObject
+    const task = props.data.data
 
     return (
       <ContentSizeProvider>
         <div className={Css.main()}>
         <Box {...elementProps} className={Css.box(contentSize)}>
-          {task.data.name}
+          {task.name}
           <div>
           <Button
-            icon={task.data.completed ? "mdi-undo" : "mdi-check"}
+            icon={task.completed ? "mdi-undo" : "mdi-check"}
             size="xl"
             onClick={handleUpdate}
             significance="subdued"
-            tooltip={task.data.completed ? lsi.completedTask : lsi.taskToComplete}
+            tooltip={task.completed ? lsi.completedTask : lsi.taskToComplete}
           />
           <Button
             icon="mdi-delete"

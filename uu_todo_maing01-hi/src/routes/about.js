@@ -132,7 +132,6 @@ let About = createVisualComponent({
           <DynamicLibraryComponent
             uu5Tag="Plus4U5.App.About"
             header={<Lsi import={importLsi} path={["About", "header"]} />}
-            content={about}
           />
 
           <DynamicLibraryComponent
