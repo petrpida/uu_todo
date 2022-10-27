@@ -40,12 +40,16 @@
     "taskToComplete": "move to completed task list"
   },
   "UuTodo.Bricks.Task.ListView": {
-    "deleteAlertHeader": "The task has been deleted",
+    "deleteAlertHeader": "Deleted task:",
     "errorAlertHeader": "Error!!!",
     "showList": "Show completed task list",
     "hideList": "Hide completed task list",
     "taskList": "Task list - TODO",
     "completedTasks": "Completed task list",
-    "addTaskAlert": "You have just added new task!"
+    "addTaskAlert": "Task added:"
+  },
+  "UuTodo.Bricks.Task.FormTask": {
+    "label": "New Task",
+    "addButton": "Add task"
   }
 }

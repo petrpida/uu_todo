@@ -47,5 +47,9 @@
     "taskList": "Úkoly k vyřízení",
     "completedTasks": "Vyřízené úkoly",
     "addTaskAlert": "Přidali jste nový úkol!"
+  },
+  "UuTodo.Bricks.Task.FormTask": {
+    "label": "Nový úkol",
+    "addButton": "Přidat úkol"
   }
 }

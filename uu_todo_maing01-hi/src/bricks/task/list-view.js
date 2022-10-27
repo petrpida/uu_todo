@@ -108,20 +108,22 @@ const ListView = createVisualComponent({
     }
 
     function handleAddTask(event) {
-      const task = event.data.value;
+      let task = event.data.value;
 
       try {
         setTaskList((prevTaskList) => {
-          let newArray = [...prevTaskList, { data: { id: Utils.String.generateId(), name: task.name, completed: false, created: new Date().toISOString() } }];
-          console.log(newArray)
-          return newArray
-        })
+          return [...prevTaskList, { data: { id: Utils.String.generateId(), name: task.name, completed: false, created: new Date().toISOString() } }];
+        });
         addAlert({
           header: lsi.addTaskAlert,
           message: `"${task.name}"`,
           priority: "success",
           durationMs: 2000,
         });
+        console.log(task.name)
+        event.data.value.name = "nic";
+        console.log(task.name)
+
       } catch (error) {
         ListView.logger.error("Error adding task", error);
         showError(error, lsi.errorAlertHeader);
@@ -151,7 +153,8 @@ const ListView = createVisualComponent({
                   onDelete={handleDelete}
                   onUpdate={handleUpdate}
                 />
-              ))}
+              ))
+            }
           </Box>}
         {taskList.filter((task) => (task.data.completed)).length > 0 &&
           <>
