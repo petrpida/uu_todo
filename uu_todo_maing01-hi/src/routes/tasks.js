@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils } from "uu5g05";
+import { createVisualComponent, Utils, useScreenSize } from "uu5g05";
 import Config from "./config/config.js";
 import RouteBar from "../core/route-bar";
 import ListProvider from "../bricks/task/list-provider";
@@ -12,7 +12,24 @@ import ListView from "../bricks/task/list-view";
 
 //@@viewOn:css
 const Css = {
-  main: () => Config.Css.css({}),
+  container: (screenSize) => {
+    let maxWidth;
+
+    switch (screenSize) {
+      case "xs":
+      case "s":
+        maxWidth = "100%";
+        break;
+      case "m":
+      case "l":
+        maxWidth = 640;
+        break;
+      case "xl":
+      default:
+        maxWidth = 1280;
+    }
+    return Config.Css.css({ maxWidth: maxWidth, margin: "0px auto", paddingLeft: 8, paddingRight: 8 });
+  }
 };
 //@@viewOff:css
 
@@ -34,13 +51,14 @@ let Tasks = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const [screenSize] = useScreenSize();
     //@@viewOff:private
 
     //@@viewOn:interface
     //@@viewOff:interface
 
     //@@viewOn:render
-    const attrs = Utils.VisualComponent.getAttrs(props, Css.main());
+    const attrs = Utils.VisualComponent.getAttrs(props);
 
     return (
       <div {...attrs}>
@@ -48,7 +66,9 @@ let Tasks = createVisualComponent({
         <ListProvider>
           {(taskDataList) => (
             <RouteController routeDataObject={taskDataList}>
+              <div className={Css.container(screenSize)}>
               <ListView taskDataList={taskDataList}/>
+              </div>
             </RouteController>
           )}
         </ListProvider>

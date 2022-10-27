@@ -16,19 +16,17 @@ const Css = {
   button: () => Config.Css.css({ display: "block", margin: "32px auto" }),
   title: () => Config.Css.css({ margin: "16px auto", textDecoration: "underline" }),
   box: () => Config.Css.css({
-    width: "90%",
+    marginBottom: "32px",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    margin: "32px auto",
     background: "lightBlue"
   }),
   boxHidden: (hidden) => Config.Css.css({
-    width: "90%",
+    marginBottom: "32px",
     display: hidden ? "none" : "flex",
     flexDirection: "column",
     justifyContent: "center",
-    margin: "32px auto",
     background: "lightYellow"
   })
 
@@ -93,13 +91,12 @@ const ListView = createVisualComponent({
 
       try {
         setTaskList((prevTaskList) => {
-          let newArray = prevTaskList.map((item) => {
+          return prevTaskList.map((item) => {
             if (item.data.id === task.id) {
               item.data.completed = !item.data.completed;
             }
             return item;
           });
-          return newArray
         })
       } catch (error) {
         ListView.logger.error("Error updating task", error);

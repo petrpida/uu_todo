@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, useLsi } from "uu5g05";
+import { createVisualComponent, Utils, useLsi, ContentSizeProvider } from "uu5g05";
 import { Form, FormText, SubmitButton } from "uu5g05-forms";
 import Config from "./config/config.js";
 import importLsi from "../../lsi/import-lsi";
@@ -10,7 +10,9 @@ import importLsi from "../../lsi/import-lsi";
 
 //@@viewOn:css
 const Css = {
-  main: () => Config.Css.css({width: "45%", margin: "24px auto"}),
+  main: () => Config.Css.css({ margin: "24px auto" }),
+  button: () => Config.Css.css({ display: "flex", margin: "16px auto" }),
+
 };
 //@@viewOff:css
 
@@ -39,17 +41,15 @@ const FormTask = createVisualComponent({
     //@@viewOff:interface
 
     //@@viewOn:render
-    const attrs = Utils.VisualComponent.getAttrs(props, Css.main());
+    const [elementProps] = Utils.VisualComponent.splitProps(props);
 
     return (
-      <div {...attrs}>
-        <Form onSubmit={props.onSubmit}>
-          <FormText name="name" label={lsi.label} size="xl" initialValue="" required />
-          <div style={{ display: "flex", gap: 8, justifyContent: "center", paddingTop: 8 }}>
-            <SubmitButton size="xl">{lsi.addButton}</SubmitButton>
-          </div>
+      <ContentSizeProvider>
+        <Form {...elementProps} onSubmit={props.onSubmit} className={Css.main()}>
+          <FormText name="name" label={lsi.label} size="xl" initialValue="" required/>
+          <SubmitButton size="xl" className={Css.button()}>{lsi.addButton}</SubmitButton>
         </Form>
-      </div>
+      </ContentSizeProvider>
     );
     //@@viewOff:render
   },

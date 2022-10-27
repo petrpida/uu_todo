@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, PropTypes, useLsi } from "uu5g05";
+import { createVisualComponent, Utils, PropTypes, useLsi, ContentSizeProvider, useContentSize } from "uu5g05";
 import { Box, Button } from "uu5g05-elements";
 import Config from "./config/config.js";
 import importLsi from "../../lsi/import-lsi";
@@ -10,12 +10,14 @@ import importLsi from "../../lsi/import-lsi";
 
 //@@viewOn:css
 const Css = {
-  main: () => Config.Css.css({ width: "90%", margin: "24px auto"}),
-  box: () => Config.Css.css({
-    padding: "24px",
+  main: () => Config.Css.css({ width: "95%", margin: "16px auto"}),
+  box: (contentSize) => Config.Css.css({
+    padding: "16px",
     display: "flex",
+    flexDirection: contentSize === "s" || contentSize === "xs" ? "column" : "row",
     alignItems: "center",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    gap: 8
   }),
 };
 //@@viewOff:css
@@ -45,6 +47,7 @@ const Tile = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const lsi = useLsi(importLsi, [Tile.uu5Tag])
+    const contentSize = useContentSize()
 
     function handleDelete(event) {
       const task = props.taskDataObject;
@@ -62,12 +65,13 @@ const Tile = createVisualComponent({
     //@@viewOff:interface
 
     //@@viewOn:render
-    const attrs = Utils.VisualComponent.getAttrs(props, Css.main());
+    const [elementProps] = Utils.VisualComponent.splitProps(props);
     const task = props.taskDataObject
 
     return (
-      <div {...attrs}>
-        <Box className={Css.box()}>
+      <ContentSizeProvider>
+        <div className={Css.main()}>
+        <Box {...elementProps} className={Css.box(contentSize)}>
           {task.data.name}
           <div>
           <Button
@@ -86,7 +90,8 @@ const Tile = createVisualComponent({
           />
           </div>
         </Box>
-      </div>
+        </div>
+      </ContentSizeProvider>
     );
     //@@viewOff:render
   },
